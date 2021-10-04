@@ -1,0 +1,8 @@
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize data class News(
+    var sampe : String
+) : Parcelable {
+
+}
