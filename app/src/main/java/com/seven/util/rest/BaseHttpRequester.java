@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.seven.model.Cache;
+import com.seven.util.data.HttpCacher;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -207,6 +209,10 @@ public class BaseHttpRequester implements Cloneable {
     public void setHttpCatchable(HttpCatchable httpCatchable) {
         mHttpCatchable = httpCatchable;
     }
+    private HttpCacher mCacher;
+    public void setHttpCatchable(HttpCacher cacher) {
+        mCacher = cacher;
+    }
     /**
      * @return the headers of http request
      */
@@ -249,6 +255,13 @@ public class BaseHttpRequester implements Cloneable {
 
         if (mHttpCatchable != null) {
             String response = mHttpCatchable.getBody(getUrl());
+            if (!response.isEmpty()) {
+                onHttpResponse(response, 200, true);
+            }
+        }
+
+        if (mCacher != null) {
+            String response = mCacher.get(getUrl()).getResponse();
             if (!response.isEmpty()) {
                 onHttpResponse(response, 200, true);
             }
@@ -417,6 +430,19 @@ public class BaseHttpRequester implements Cloneable {
                     if (req.getHttpCatchable() != null) {
                         boolean isEmptyCache = req.getHttpCatchable().getBody(req.getUrl()).isEmpty();
                         req.getHttpCatchable().put(req.getUrl(), response, httpResponseCode);
+                        if (!isEmptyCache) {
+                            return;
+                        }
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
+                try {
+                    if (req.mCacher != null) {
+                        boolean isEmptyCache = req.mCacher.get(req.getUrl()).getResponse() != null;
+                        req.mCacher.cache(new Cache(req.getUrl() , response));
                         if (!isEmptyCache) {
                             return;
                         }

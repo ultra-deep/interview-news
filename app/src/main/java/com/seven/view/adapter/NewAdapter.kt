@@ -44,16 +44,9 @@ public class NewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun getItemViewType(position: Int): Int {
-
-        //todo view types
-
-//        when (position) {
-//            items.get(position).isText  -> {
-//            }
-//            else -> {
-//            }
-//        }
-        return super.getItemViewType(position)
+        if(items.get(position).isTextType())  return VIEW_TYPE_TEXT
+        if(items.get(position).isImageType())  return VIEW_TYPE_PHOTO
+        return VIEW_TYPE_ADVErTISE
     }
 
     override fun onBindViewHolder(
