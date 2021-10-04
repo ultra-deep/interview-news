@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
+import com.seven.myapplication.BR
 import com.seven.myapplication.databinding.RecyclerItemNewsAddvertiseBinding
 import com.seven.myapplication.databinding.RecyclerItemNewsPhotoBinding
 import com.seven.myapplication.databinding.RecyclerItemNewsTextBinding
@@ -55,6 +56,7 @@ public class NewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         payloads: MutableList<Any>
     ) {
         super.onBindViewHolder(holder, position, payloads)
+        if(holder is BaseViewHolder) holder.binding.setVariable(BR.model , items.get(position))
     }
 
     override fun getItemCount(): Int {
@@ -74,15 +76,12 @@ public class NewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 }
 
-public class NewsTextViewHolder(binding: RecyclerItemNewsTextBinding) : RecyclerView.ViewHolder(binding.root) {
+public class NewsTextViewHolder(binding: RecyclerItemNewsTextBinding) : BaseViewHolder(binding) {
 }
-public class NewsPhotoViewHolder(binding: RecyclerItemNewsPhotoBinding) : RecyclerView.ViewHolder(binding.root) {
+public class NewsPhotoViewHolder(binding: RecyclerItemNewsPhotoBinding) : BaseViewHolder(binding) {
 }
-public class NewsAdvertiseViewHolder(binding: RecyclerItemNewsAddvertiseBinding) : RecyclerView.ViewHolder(binding.root) {
-}
+public class NewsAdvertiseViewHolder(binding: RecyclerItemNewsAddvertiseBinding) : BaseViewHolder(binding) {
 
-//public class BaseViewHolder : RecyclerView.ViewHolder {
-//    constructor(binding: ViewDataBinding) {
-//        super(binding.root)
-//    }
-//}
+}
+public open class BaseViewHolder(var binding: ViewDataBinding) : RecyclerView.ViewHolder(binding.root) {
+}

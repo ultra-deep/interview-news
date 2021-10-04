@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-	<data>
 
-	</data>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	xmlns:tools="http://schemas.android.com/tools"
-	android:layout_width="match_parent"
-	android:layout_height="wrap_content"
-	tools:context="com.seven.view.MainActivity">
+    <data>
 
-	<androidx.appcompat.widget.AppCompatImageView
-		android:layout_width="match_parent"
-		android:layout_height="200dp"
-		android:scaleType="centerCrop"
-		/>
+        <variable
+            name="model"
+            type="News" />
+    </data>
 
-</LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:context="com.seven.view.MainActivity">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{model.url}" />
+
+    </LinearLayout>
 </layout>
