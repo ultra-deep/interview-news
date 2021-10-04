@@ -1,6 +1,7 @@
 package com.seven.viewmodel
 
 import Repository
+import android.content.Context
 import androidx.lifecycle.MutableLiveData
 import com.seven.view.adapter.NewAdapter
 
@@ -12,11 +13,11 @@ public class NewsViewModel(var repository:Repository) : BaseViewModel() {
     var progressing = MutableLiveData<Boolean>(false)
     val newsAdapter = MutableLiveData(NewAdapter())
 
-    fun fetchNews(){
+    fun fetchNews(context: Context){
 
         progressing.value = true
 
-        repository.fetchNews({ news ->
+        repository.fetchNews(context, { news ->
             progressing.value = false
             newsAdapter.value!!.setItems(news)
             newsAdapter.value!!.notifyDataSetChanged()

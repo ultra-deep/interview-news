@@ -37,11 +37,12 @@ public class NewsFragment : BaseFragment{
         binding = FragmentNewsBinding.inflate(inflater , container , false)
         viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
         binding.viewModel = viewModel
+        binding.lifecycleOwner = this
         return binding.root
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        viewModel.newsAdapter.value.setItems(arguments.getParcelableArrayList<News>("news") as? ArrayList<News>)
+        viewModel.newsAdapter.value!!.setItems(arguments?.getParcelableArrayList<News>("news") as? ArrayList<News>)
     }
 }

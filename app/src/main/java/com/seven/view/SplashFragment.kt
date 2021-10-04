@@ -36,13 +36,14 @@ public class SplashFragment : BaseFragment{
 
         binding = FragmentSplashBinding.inflate(inflater , container , false)
         viewModel = ViewModelProvider(this).get(NewsViewModel::class.java)
+        binding.lifecycleOwner = this
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchNews()
+        viewModel.fetchNews(requireContext())
 
         view.postDelayed({
             getBaseActivity()?.showFragment(NewsFragment.newInstance(viewModel.newsAdapter.value!!.getItems()))
