@@ -14,7 +14,7 @@ class RoomHttpCacher : HttpCacher {
     lateinit var dao : CachceDao
     constructor(applicationContext :Context)
     {
-        var db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").build()
+        var db = Room.databaseBuilder(applicationContext, AppDatabase::class.java, "database-name").allowMainThreadQueries().build()
         dao = db. cacherDao()
     }
 

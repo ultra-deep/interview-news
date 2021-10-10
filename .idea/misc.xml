@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/layout/fragment_splash.xml" value="0.22" />
         <entry key="app/src/main/res/layout/recycler_item_news_addvertise.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/recycler_item_news_photo.xml" value="0.19895833333333332" />
         <entry key="app/src/main/res/layout/recycler_item_news_text.xml" value="0.1" />

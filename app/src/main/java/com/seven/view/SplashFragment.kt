@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.seven.model.News
 import com.seven.myapplication.databinding.FragmentSplashBinding
 import com.seven.viewmodel.NewsViewModel
 
@@ -15,8 +16,15 @@ public class SplashFragment : BaseFragment{
     constructor() : super()
 
 
+    private var waitingForResponse = false
     lateinit var binding : FragmentSplashBinding
     lateinit var viewModel : NewsViewModel
+
+    val onReceiveNews : (List<News>) -> Unit = { news  ->
+        if (waitingForResponse) {
+            showNewsFragment()
+        }
+    }
 
     companion object{
         fun newInstance():SplashFragment{
@@ -40,12 +48,20 @@ public class SplashFragment : BaseFragment{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.fetchNews(requireContext())
+        viewModel.fetchNews(onReceiveNews)
 
         view.postDelayed({
-            getBaseActivity()?.showFragment(NewsFragment.newInstance(viewModel.newsAdapter.value!!.getItems()))
+            if (viewModel.newsAdapter.value!!.itemCount > 0) {
+                showNewsFragment()
+            } else {
+                waitingForResponse = true
+            }
 
-        } , 2000)
+        } , 1000)
+    }
+
+    private fun showNewsFragment() {
+            getBaseActivity()?.showFragment(NewsFragment.newInstance(viewModel.newsAdapter.value!!.getItems()))
     }
 
 

@@ -14,7 +14,10 @@ import androidx.annotation.NonNull;
 import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
 import com.seven.model.Cache;
+import com.seven.model.News;
+import com.seven.myapplication.BuildConfig;
 import com.seven.util.data.HttpCacher;
 
 import java.io.BufferedReader;
@@ -26,6 +29,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,6 +55,7 @@ public class BaseHttpRequester implements Cloneable {
      * time to waite receive http response
      */
     private static final int TIMEOUT_IN_MILLISECOND = 60000;
+    private static final String FAKE_RESPONSE = "{\"isSuccess\":true,\"data\":[{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":60,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":59,\"type\":\"TEXT\"},{\"id\":58,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":57,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":56,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":55,\"type\":\"TEXT\"},{\"id\":54,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":53,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":52,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":51,\"type\":\"TEXT\"},{\"id\":50,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":49,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":48,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":47,\"type\":\"TEXT\"},{\"id\":46,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":45,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":44,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":43,\"type\":\"TEXT\"},{\"id\":42,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":41,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":40,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":39,\"type\":\"TEXT\"},{\"id\":38,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":37,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":36,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":35,\"type\":\"TEXT\"},{\"id\":34,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":33,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":32,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":31,\"type\":\"TEXT\"},{\"id\":30,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":29,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":28,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":27,\"type\":\"TEXT\"},{\"id\":26,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":25,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":24,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":23,\"type\":\"TEXT\"},{\"id\":22,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":21,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":20,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":19,\"type\":\"TEXT\"},{\"id\":18,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":17,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":16,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":15,\"type\":\"TEXT\"},{\"id\":14,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":13,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":12,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":11,\"type\":\"TEXT\"},{\"id\":10,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":9,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":8,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":7,\"type\":\"TEXT\"},{\"id\":6,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":5,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":4,\"type\":\"IMAGE\"},{\"text\":\"example@live.com\",\"id\":3,\"type\":\"TEXT\"},{\"id\":2,\"type\":\"AD\"},{\"text\":\"We Can Start Over And Make The World A Better Place\",\"id\":1,\"type\":\"TEXT\"},{\"description\":\"زیبایی اعماق اقبانوس\",\"url\":\"https://www.uwphotographyguide.com/images/Articles/d810-settings-88.jpg\",\"id\":0,\"type\":\"IMAGE\"}]}";
     /**
      * a json model converter
      */
@@ -260,12 +265,23 @@ public class BaseHttpRequester implements Cloneable {
             }
         }
 
-        if (mCacher != null) {
+        if (mCacher != null && mCacher.get(getUrl()) != null) {
+
             String response = mCacher.get(getUrl()).getResponse();
             if (!response.isEmpty()) {
                 onHttpResponse(response, 200, true);
             }
         }
+
+        if (BuildConfig.DEBUG) { //@@@@@@@
+            try {
+                mResponseListener.onHttpResponse(FAKE_RESPONSE , 200 , false);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+
         mMyRequestThread.start();
     }
     protected void onHttpFailRequest(Throwable e) {

@@ -2,6 +2,7 @@ package com.seven.viewmodel
 
 import android.content.Context
 import androidx.lifecycle.MutableLiveData
+import com.seven.model.News
 import com.seven.util.Repository
 import com.seven.view.adapter.NewAdapter
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -19,7 +20,7 @@ public class NewsViewModel @Inject constructor(@ApplicationContext  context: Con
     var progressing = MutableLiveData<Boolean>(false)
     val newsAdapter = MutableLiveData(NewAdapter())
 
-    fun fetchNews(context: Context){
+    fun fetchNews(onReceiveNews:(List<News>)->Unit){
 
         progressing.value = true
 
@@ -27,6 +28,7 @@ public class NewsViewModel @Inject constructor(@ApplicationContext  context: Con
             progressing.value = false
             newsAdapter.value!!.setItems(news)
             newsAdapter.value!!.notifyDataSetChanged()
+            onReceiveNews(news)
         },
             {  e,  equester ->
                 progressing.value = false

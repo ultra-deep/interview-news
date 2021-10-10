@@ -12,7 +12,7 @@ import kotlinx.android.parcel.Parcelize
     @SerializedName("text") var text : String?
 ) : Parcelable {
 
-    constructor() : this("","",0, TYPE_TEXT , "")
+//    constructor() : this("","",0, TYPE_TEXT , "")
 
     companion object {
         const val  TYPE_IMAGE = "IMAGE"
