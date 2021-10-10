@@ -1,11 +1,11 @@
 package com.seven.view
 
-import News
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
+import com.seven.model.News
 import com.seven.myapplication.databinding.FragmentNewsBinding
 import com.seven.myapplication.databinding.FragmentSplashBinding
 import com.seven.viewmodel.NewsViewModel

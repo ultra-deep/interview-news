@@ -1,6 +1,9 @@
+package com.seven.util
+
 import android.content.Context
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
+import com.seven.model.News
 import com.seven.util.data.RoomHttpCacher
 import com.seven.util.rest.BaseHttpRequester
 
@@ -13,7 +16,7 @@ public class RepositoryImp : Repository {
     }
 
 
-    override fun fetchNews(context:Context, onResponse: (List<News>) -> Unit , onFail:(Throwable? , BaseHttpRequester?) ->Unit) {
+    override fun fetchNews(context:Context, onResponse: (List<News>) -> Unit, onFail:(Throwable?, BaseHttpRequester?) ->Unit) {
         var requester = BaseHttpRequester("")
         requester.get()
         requester.setHttpCatchable(RoomHttpCacher(context))

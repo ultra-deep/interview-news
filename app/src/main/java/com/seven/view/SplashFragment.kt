@@ -1,7 +1,5 @@
 package com.seven.view
 
-import Repository
-import RepositoryImp
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +14,6 @@ import com.seven.viewmodel.NewsViewModel
 public class SplashFragment : BaseFragment{
     constructor() : super()
 
-    private lateinit var repostory : Repository
 
     lateinit var binding : FragmentSplashBinding
     lateinit var viewModel : NewsViewModel

@@ -4,12 +4,13 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'org.jetbrains.kotlin.android.extensions'
-    id 'kotlin-kapt'
+    id "kotlin-kapt"
+    id "dagger.hilt.android.plugin"
 }
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    buildToolsVersion "30.0.2"
 
     defaultConfig {
         applicationId "com.seven.myapplication"
@@ -21,6 +22,8 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -28,8 +31,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility "1.8"
+        targetCompatibility "1.8"
     }
     kotlinOptions {
         jvmTarget = '1.8'
@@ -105,8 +108,19 @@ dependencies {
     implementation "androidx.room:room-guava:$room_version"
 
     // optional - Test helpers
-    testImplementation("androidx.room:room-testing:$room_version")
+//    testImplementation("androidx.room:room-testing:$room_version")
 
     // optional - Paging 3 Integration
-    implementation("androidx.room:room-paging:2.4.0-alpha05")
+//    implementation("androidx.room:room-paging:2.4.0-alpha05")
+
+
+    //======================\ Download and cache images \=======================
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
+
+    //======================\ Dependency Injection \=======================
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+    implementation "com.google.dagger:hilt-android:2.31.2-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.31.2-alpha"
+    kapt 'androidx.hilt:hilt-compiler:1.0.0'
 }

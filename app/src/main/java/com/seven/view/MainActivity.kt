@@ -6,8 +6,10 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.FragmentTransaction
 import com.seven.myapplication.R
 import com.seven.myapplication.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-class MainActivity : AppCompatActivity() {
+
+class MainActivity : BaseActivity() {
 
     lateinit var binding : ActivityMainBinding
 

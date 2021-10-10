@@ -7,6 +7,6 @@ import androidx.room.PrimaryKey
 @Entity
 data class Cache(
 //    @PrimaryKey val uid: Int,
-    @PrimaryKey @ColumnInfo(name = "url") val url: String?,
+    @PrimaryKey @ColumnInfo(name = "url") val url: String,
     @ColumnInfo(name = "response") val response: String?
 )

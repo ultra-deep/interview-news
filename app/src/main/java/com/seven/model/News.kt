@@ -1,3 +1,5 @@
+package com.seven.model
+
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -9,6 +11,8 @@ import kotlinx.android.parcel.Parcelize
     @SerializedName("type") var type : String?,
     @SerializedName("text") var text : String?
 ) : Parcelable {
+
+    constructor() : this("","",0, TYPE_TEXT , "")
 
     companion object {
         const val  TYPE_IMAGE = "IMAGE"
