@@ -364,6 +364,8 @@ public class BaseHttpRequester implements Cloneable {
             int retryCounter = 0;
             try {
 
+
+
                 retryCounter++;
                 URL url = new URL(req.getUrl());
                 connection = (HttpURLConnection) url.openConnection();

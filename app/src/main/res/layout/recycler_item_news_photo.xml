@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,18 +9,28 @@
             type="com.seven.model.News" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:context="com.seven.view.MainActivity">
+        android:layout_height="200dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:layout_margin="16dp"
+        android:thicknessRatio="1.9"
+        app:elevation="0dp"
+        app:cardCornerRadius="24dp"
+        >
 
-        <androidx.appcompat.widget.AppCompatImageView
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
-            app:imageUrl="@{model.url}" />
+            android:layout_height="wrap_content"
+            >
 
-    </LinearLayout>
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:imageUrl="@{model.url}" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 </layout>
