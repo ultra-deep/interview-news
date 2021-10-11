@@ -270,16 +270,8 @@ public class BaseHttpRequester implements Cloneable {
             String response = mCacher.get(getUrl()).getResponse();
             if (!response.isEmpty()) {
                 onHttpResponse(response, 200, true);
+                return;
             }
-        }
-
-        if (BuildConfig.DEBUG) { //@@@@@@@
-            try {
-                mResponseListener.onHttpResponse(FAKE_RESPONSE , 200 , false);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            return;
         }
 
         mMyRequestThread.start();
@@ -358,6 +350,20 @@ public class BaseHttpRequester implements Cloneable {
             this.req = baseHttpRequester;
         }
         @Override public synchronized void run() {
+
+
+//            if (BuildConfig.DEBUG) { //@@@@@@@
+//
+//                response.append(FAKE_RESPONSE);
+//                httpResponseCode = 200;
+//                cacheResponseIffNeed(response.toString(), httpResponseCode);
+//
+//                Message msg = Message.obtain();
+//                msg.obj = this;
+//                req.mThreadHandler.sendMessage(msg);
+//                return;
+//            }
+
             mException = null;
             HttpURLConnection connection = null;
             BufferedReader in = null;
@@ -459,7 +465,7 @@ public class BaseHttpRequester implements Cloneable {
 
                 try {
                     if (req.mCacher != null) {
-                        boolean isEmptyCache = req.mCacher.get(req.getUrl()).getResponse() != null;
+                        boolean isEmptyCache = req.mCacher.get(req.getUrl()) != null && req.mCacher.get(req.getUrl()).getResponse() != null;
                         req.mCacher.cache(new Cache(req.getUrl() , response));
                         if (!isEmptyCache) {
                             return;
